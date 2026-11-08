@@ -1,0 +1,270 @@
+{
+  "schema_version": "1.0",
+  "run": {
+    "id": "R-example",
+    "target": "架空の会議室予約サービスの提供抜粋",
+    "target_version": "fixture-v1",
+    "recorded_at": "2026-11-08T15:00:00+09:00",
+    "mode": "artifact",
+    "nature": "example",
+    "environment": "架空のテキスト抜粋のみ。ブラウザなし。",
+    "permissions": "資料の確認のみ。予約や送信は不可。",
+    "limits": "デモ用に2ペルソナ×共通タスク1件。資料確認のみで実操作0回。",
+    "limitations": [
+      "全データは説明用の架空例。実サービスの検証結果ではない。",
+      "実ユーザー不在。単一コンテキスト。",
+      "画面配置、料金の次画面、キーボード操作は未確認。"
+    ]
+  },
+  "personas": [
+    {
+      "id": "P1",
+      "label": "予算を確認してから予約したい人",
+      "basis": "hypothesis",
+      "source_refs": [],
+      "goal": "予算内で1時間使える会議室を確保する",
+      "context": "初回利用。PC。会議の準備中。",
+      "prior_knowledge": "一般的な予約フォームは使ったことがある。このサービスの料金は知らない。",
+      "constraints": "予約前に総額を確かめたい。",
+      "decision_rule": "総額と取り消し条件を先に確認する。入力の手間は多少許容する。",
+      "stop_rule": "料金の手掛かりがないまま確定を求められたら中止する。"
+    },
+    {
+      "id": "P2",
+      "label": "キーボードで操作する継続利用者",
+      "basis": "hypothesis",
+      "source_refs": [],
+      "goal": "いつもの時間帯に会議室を確保する",
+      "context": "PCで反復予約。キーボード操作。",
+      "prior_knowledge": "予約という概念と日付・時間入力は知っている。この画面のキー操作は知らない。",
+      "constraints": "操作時はキーボードのみ。今回の資料では再現できない。",
+      "decision_rule": "入力と確認をキーボードで完結できること。",
+      "stop_rule": "次の入力欄へ移動できず、2回試しても回復できなければ中止する。"
+    }
+  ],
+  "tasks": [
+    {
+      "id": "T1",
+      "goal": "1時間の会議室予約について条件を確認し、確定直前まで進む",
+      "start_state": "予約の開始画面",
+      "success_criteria": "日付・時間・総額・取り消し条件を確認できる確定前画面に到達する",
+      "allowed_actions": "この例では資料の参照のみ。実操作と予約確定は行わない。"
+    }
+  ],
+  "evidence": [
+    {
+      "id": "E1",
+      "kind": "artifact",
+      "ref": "example-source.md",
+      "locator": "予約の開始画面",
+      "captured_at": "2026-11-08T15:00:00+09:00",
+      "observation": "見出し、日付、開始時刻、終了時刻、次へボタンの文言がある。料金と取り消し条件は抜粋に含まれない。"
+    }
+  ],
+  "sessions": [
+    {
+      "id": "S1",
+      "persona_id": "P1",
+      "task_id": "T1",
+      "mode": "artifact",
+      "outcome": "not_run",
+      "outcome_reason": "静的なテキスト抜粋のみで操作できない。確定前の確認画面には到達していない。",
+      "result_evidence_ids": [],
+      "state_reset": "同じ架空資料を参照。実アカウントや状態変更はない。",
+      "steps": [
+        {
+          "observation_evidence_ids": [
+            "E1"
+          ],
+          "action": "日付と時刻を確認して「次へ」を選ぶ想定。",
+          "action_status": "proposed",
+          "expected": "料金と確定前の確認内容が見えることを期待する（仮説）。",
+          "actual": "未実行。次の画面は提供されていない。",
+          "result_evidence_ids": []
+        }
+      ],
+      "scores": {
+        "value": {
+          "score": 4,
+          "reason": "会議室を予約するという目的が見出しに明示されている。提供抜粋の評価に限る。",
+          "evidence_ids": [
+            "E1"
+          ]
+        },
+        "discovery": {
+          "score": null,
+          "reason": "提供資料のみでは確認できない。",
+          "evidence_ids": []
+        },
+        "comprehension": {
+          "score": 4,
+          "reason": "日付と開始・終了時刻にラベルがある。操作結果の理解は未確認。",
+          "evidence_ids": [
+            "E1"
+          ]
+        },
+        "efficiency": {
+          "score": null,
+          "reason": "提供資料のみでは確認できない。",
+          "evidence_ids": []
+        },
+        "recovery": {
+          "score": null,
+          "reason": "提供資料のみでは確認できない。",
+          "evidence_ids": []
+        },
+        "trust": {
+          "score": 2,
+          "reason": "この抜粋には料金と取り消し条件がなく、この段階で判断材料が不足する。次画面は未確認。",
+          "evidence_ids": [
+            "E1"
+          ]
+        },
+        "inclusion": {
+          "score": null,
+          "reason": "提供資料のみでは確認できない。",
+          "evidence_ids": []
+        }
+      },
+      "review": "目的と入力項目は読み取れる。料金を確認できないと判断を保留する可能性がある（AIによる仮説）。"
+    },
+    {
+      "id": "S2",
+      "persona_id": "P2",
+      "task_id": "T1",
+      "mode": "artifact",
+      "outcome": "not_run",
+      "outcome_reason": "静的なテキスト抜粋のみで操作できない。確定前の確認画面には到達していない。",
+      "result_evidence_ids": [],
+      "state_reset": "同じ架空資料を参照。実アカウントや状態変更はない。",
+      "steps": [
+        {
+          "observation_evidence_ids": [
+            "E1"
+          ],
+          "action": "日付と時刻を確認して「次へ」を選ぶ想定。",
+          "action_status": "proposed",
+          "expected": "料金と確定前の確認内容が見えることを期待する（仮説）。",
+          "actual": "未実行。次の画面は提供されていない。",
+          "result_evidence_ids": []
+        }
+      ],
+      "scores": {
+        "value": {
+          "score": 4,
+          "reason": "会議室を予約するという目的が見出しに明示されている。提供抜粋の評価に限る。",
+          "evidence_ids": [
+            "E1"
+          ]
+        },
+        "discovery": {
+          "score": null,
+          "reason": "提供資料のみでは確認できない。",
+          "evidence_ids": []
+        },
+        "comprehension": {
+          "score": 4,
+          "reason": "日付と開始・終了時刻にラベルがある。操作結果の理解は未確認。",
+          "evidence_ids": [
+            "E1"
+          ]
+        },
+        "efficiency": {
+          "score": null,
+          "reason": "提供資料のみでは確認できない。",
+          "evidence_ids": []
+        },
+        "recovery": {
+          "score": null,
+          "reason": "提供資料のみでは確認できない。",
+          "evidence_ids": []
+        },
+        "trust": {
+          "score": null,
+          "reason": "このセッションは入力項目と操作条件の確認に限定。料金の判断は未評価。",
+          "evidence_ids": []
+        },
+        "inclusion": {
+          "score": null,
+          "reason": "提供資料のみでは確認できない。",
+          "evidence_ids": []
+        }
+      },
+      "review": "入力項目の意味は読み取れる。キーボードで完結できるかは資料から判断できない。"
+    }
+  ],
+  "findings": [
+    {
+      "id": "F1",
+      "kind": "observed_issue",
+      "title": "提供抜粋には料金・取り消し条件がない",
+      "session_ids": [
+        "S1"
+      ],
+      "evidence_ids": [
+        "E1"
+      ],
+      "fact": "抜粋には予約の目的、日付、開始・終了時刻、次へボタンがあり、料金と取り消し条件の記載はない。",
+      "interpretation": "予算を確認する目的に必要な判断材料がこの資料では不足する。",
+      "impact": "予約前に条件を確認したい人の判断を支えられない可能性。実際の離脱は未観察。",
+      "severity": "S1",
+      "confidence": "high",
+      "priority": "consider",
+      "recommendation": "実画面の次のステップで条件を確認し、必要なら開始画面に料金確認への手掛かりを設ける。",
+      "acceptance_check": "条件を確認できる画面を特定し、予約確定前に総額と取り消し条件が提示されることを確認する。",
+      "alternative_explanation": "次の画面には十分な説明がある可能性があり、サービス全体の欠落とは判断できない。"
+    },
+    {
+      "id": "F2",
+      "kind": "hypothesis",
+      "title": "条件が分からない段階で判断を保留する可能性",
+      "session_ids": [
+        "S1"
+      ],
+      "evidence_ids": [
+        "E1"
+      ],
+      "fact": "料金と取り消し条件は提供抜粋内で確認できない。",
+      "interpretation": "予算を優先する人は入力より先に条件を探す可能性がある（AIによる仮説）。",
+      "impact": "条件確認まで予約作業が中断される可能性。",
+      "severity": "S2",
+      "confidence": "low",
+      "priority": "validate_first",
+      "recommendation": "実ユーザーが何を先に探すか、確定前までのタスクで確認する。",
+      "acceptance_check": "中立的な予約課題で、条件の探索順序と中断の有無を観察する。",
+      "alternative_explanation": "次へ進めば条件を確認できると期待し、そのまま入力する人もいる。"
+    },
+    {
+      "id": "F3",
+      "kind": "strength",
+      "title": "予約の目的と日時のラベルが明示されている",
+      "session_ids": [
+        "S1",
+        "S2"
+      ],
+      "evidence_ids": [
+        "E1"
+      ],
+      "fact": "見出しは「会議室を予約する」、日時欄には日付・開始時刻・終了時刻のラベルがある。",
+      "interpretation": "何を入力する画面か理解する材料がある。",
+      "impact": "目的と入力内容を読み取る手掛かりになる。",
+      "severity": "S0",
+      "confidence": "high",
+      "priority": "preserve",
+      "recommendation": "見出しと入力ラベルを維持する。",
+      "acceptance_check": "改善後も目的と各入力欄のラベルが表示されていることを確認する。",
+      "alternative_explanation": "ラベルの存在だけではキーボード操作や支援技術との関連付けは分からない。"
+    }
+  ],
+  "human_checks": [
+    {
+      "id": "H1",
+      "finding_ids": [
+        "F2"
+      ],
+      "prompt": "予算内で1時間使う会議室を探し、予約を確定する直前まで進めてください。",
+      "supports": "入力前に料金や取り消し条件を探し、見つからず作業を保留する。",
+      "refutes": "条件の記載を探す前に次へ進み、確認画面で条件を判断して作業を続ける。"
+    }
+  ]
+}
